@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class LedgeClimbing : MonoBehaviour
 {
-    public float climbSpeed = 5f; // Velocidad de escalada
+    public float climbSpeed = 5f; 
     public Transform climbEndPosition; // Punto final de la escalada
     private bool isClimbing = false;
     private Rigidbody2D playerRb;
@@ -17,6 +17,8 @@ public class LedgeClimbing : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StartClimbing();
+            playerRb.isKinematic = true;
+
         }
     }
 
@@ -25,12 +27,14 @@ public class LedgeClimbing : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             StopClimbing();
+            playerRb.isKinematic = false;
+
         }
     }
 
     void Update()
     {
-        // Escalada
+        
         if (isClimbing)
         {
             float verticalInput = Input.GetAxis("Vertical");
