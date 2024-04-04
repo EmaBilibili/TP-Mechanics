@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 127737632}
   - component: {fileID: 127737631}
   - component: {fileID: 127737630}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,14 +423,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   jumpingPower: 8
+  isJumping: 0
   dashingPower: 18
   dashingTime: 0.2
   dashingCooldown: 1
   rb: {fileID: 234924611}
-  groundCheck: {fileID: 1232201511}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  raycastDistance: 0.7
 --- !u!61 &234924610
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -852,7 +853,7 @@ GameObject:
   - component: {fileID: 521770529}
   - component: {fileID: 521770528}
   - component: {fileID: 521770530}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1234,7 +1235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444838545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.67, y: -0.73, z: 0}
+  m_LocalPosition: {x: 4.67, y: 1.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1289,7 +1290,7 @@ GameObject:
   - component: {fileID: 2061864097}
   - component: {fileID: 2061864096}
   - component: {fileID: 2061864095}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Grip (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1450,3 +1451,64 @@ Transform:
   m_Father: {fileID: 1444838546}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2127184181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127184183}
+  - component: {fileID: 2127184182}
+  - component: {fileID: 2127184184}
+  m_Layer: 0
+  m_Name: ClimbManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2127184182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127184181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d5e6c013bc0da45b426c628b4b9a7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ledgeClimbing: {fileID: 2061864096}
+  playerController: {fileID: 234924609}
+--- !u!4 &2127184183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127184181}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.0560145, y: -0.97803044, z: 0.07008165}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2127184184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127184181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2678a1488dd074040b0ea13ac4f86063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Plataform: {fileID: 127737628}
+  disableDuration: 0.5

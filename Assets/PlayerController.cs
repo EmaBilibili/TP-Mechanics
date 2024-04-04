@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     private float horizontal;
     [SerializeField] private float speed = 8f;
     [SerializeField] private float jumpingPower = 16f;
+    public bool isJumping = false;
     private bool isFacingRight = true;
 
     private bool canDash = true;
@@ -15,9 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashingCooldown = 1f;
 
     [SerializeField] private Rigidbody2D rb;
-    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    
+    public float raycastDistance = 0.1f; // Distancia del rayo hacia abajo
 
+    private bool isGrounded;
+    
     private void Update()
     {
         if (isDashing)
@@ -27,10 +31,13 @@ public class PlayerController : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
+        IsGrounded();
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+            isGrounded = false;
         }
+        
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
@@ -55,9 +62,32 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 
+    // Método para verificar si el personaje está tocando el suelo
     public bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        // Creamos un rayo que parte de la posición del objeto hacia abajo
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
+
+        // Si el rayo golpea algo en la capa del suelo, entonces estamos tocando el suelo
+        if (hit.collider != null)
+        {
+            isGrounded = true;
+            isJumping = false;
+        }
+        else
+        {
+            isGrounded = false;
+            isJumping = true;
+        }
+
+        return isGrounded;
+    }
+
+    // Método para dibujar la línea del rayo en el Editor de Unity (solo para propósitos de visualización)
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * raycastDistance);
     }
 
     private void Flip()
