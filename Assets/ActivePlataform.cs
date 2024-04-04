@@ -2,33 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ActivePlataform : MonoBehaviour
 {
     [SerializeField] private GameObject Plataform;
-    [SerializeField] private float disableDuration = 1f; // Duración en segundos para desactivar la plataforma
-
+    [SerializeField] private BoxCollider2D PlataformCollider;
+    [SerializeField] private float disableDuration = 1f;
+    public Rigidbody2D playerRb;
     private bool isCoroutineExecuting = false;
+    public PlayerController PlayerController;
+
+    private void Start()
+    {
+        PlataformCollider.GetComponent<BoxCollider2D>();
+    }
 
     private void Update()
     {
-        // Verificar si se presionan ambas teclas simultáneamente
-        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.Space) && !isCoroutineExecuting)
+        if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.Space) && !isCoroutineExecuting && PlayerController.IsGrounded())
         {
-            // Desactivar la plataforma
-            Plataform.SetActive(false);
-            // Iniciar la corrutina para reactivar la plataforma después de disableDuration segundos
+            // Plataform.SetActive(false);
+            PlataformCollider.enabled = false;
             StartCoroutine(ReactivatePlataform());
         }
+        if (playerRb.velocity.y > 0.1f)
+        {
+            // Plataform.SetActive(false);
+            PlataformCollider.enabled = false;
+        }
+        else if (playerRb.velocity.y < -0.1f && !isCoroutineExecuting)
+        {
+            // Plataform.SetActive(true);
+            PlataformCollider.enabled = true;
+        }
     }
-
-    // Corrutina para reactivar la plataforma después de un período de tiempo
     IEnumerator ReactivatePlataform()
     {
         isCoroutineExecuting = true;
         yield return new WaitForSeconds(disableDuration);
-        // Reactivar la plataforma después de disableDuration segundos
-        Plataform.SetActive(true);
+        // Plataform.SetActive(true);
+        PlataformCollider.enabled = true;
         isCoroutineExecuting = false;
     }
 }

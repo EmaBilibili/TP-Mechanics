@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 127737630}
   m_Layer: 6
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Plataform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -562,7 +562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &235905024
 Transform:
   m_ObjectHideFlags: 0
@@ -658,6 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbSpeed: 5
   climbEndPosition: {fileID: 1701394036}
+  playerRb: {fileID: 0}
 --- !u!50 &468235681
 Rigidbody2D:
   serializedVersion: 4
@@ -1123,6 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbSpeed: 5
   climbEndPosition: {fileID: 1701394036}
+  playerRb: {fileID: 0}
 --- !u!61 &804604729
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1235,7 +1237,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444838545}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.67, y: 1.21, z: 0}
+  m_LocalPosition: {x: 4.67, y: -0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1289,7 +1291,6 @@ GameObject:
   - component: {fileID: 2061864098}
   - component: {fileID: 2061864097}
   - component: {fileID: 2061864096}
-  - component: {fileID: 2061864095}
   m_Layer: 0
   m_Name: Grip (1)
   m_TagString: Untagged
@@ -1297,32 +1298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &2061864095
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2061864094}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &2061864096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1337,6 +1312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbSpeed: 5
   climbEndPosition: {fileID: 1701394036}
+  playerRb: {fileID: 0}
 --- !u!50 &2061864097
 Rigidbody2D:
   serializedVersion: 4
@@ -1365,10 +1341,10 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061864094}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 84385a2dcf0f86b4bb1ef77b4a417f9a, type: 2}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1483,6 +1459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ledgeClimbing: {fileID: 2061864096}
   playerController: {fileID: 234924609}
+  GripCollider: {fileID: 2061864098}
 --- !u!4 &2127184183
 Transform:
   m_ObjectHideFlags: 0
@@ -1511,4 +1488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Plataform: {fileID: 127737628}
+  PlataformCollider: {fileID: 127737631}
   disableDuration: 0.5
+  playerRb: {fileID: 234924611}
+  PlayerController: {fileID: 234924609}

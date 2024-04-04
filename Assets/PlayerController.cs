@@ -8,47 +8,36 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpingPower = 16f;
     public bool isJumping = false;
     private bool isFacingRight = true;
-
     private bool canDash = true;
     private bool isDashing;
     [SerializeField] private float dashingPower = 24f;
     [SerializeField] private float dashingTime = 0.2f;
     [SerializeField] private float dashingCooldown = 1f;
-
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private LayerMask groundLayer;
-    
     public float raycastDistance = 0.1f; // Distancia del rayo hacia abajo
-
     private bool isGrounded;
-    
     private void Update()
     {
         if (isDashing)
         {
             return;
         }
-
         horizontal = Input.GetAxisRaw("Horizontal");
-
         IsGrounded();
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && IsGrounded() && !Input.GetKey(KeyCode.S))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
             isGrounded = false;
         }
-        
-
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
-
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
         {
             StartCoroutine(Dash());
         }
-
         Flip();
     }
 
@@ -58,17 +47,11 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
         rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
-
-    // Método para verificar si el personaje está tocando el suelo
     public bool IsGrounded()
     {
-        // Creamos un rayo que parte de la posición del objeto hacia abajo
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raycastDistance, groundLayer);
-
-        // Si el rayo golpea algo en la capa del suelo, entonces estamos tocando el suelo
         if (hit.collider != null)
         {
             isGrounded = true;
@@ -79,11 +62,8 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             isJumping = true;
         }
-
         return isGrounded;
     }
-
-    // Método para dibujar la línea del rayo en el Editor de Unity (solo para propósitos de visualización)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -100,7 +80,6 @@ public class PlayerController : MonoBehaviour
             transform.localScale = localScale;
         }
     }
-
     private IEnumerator Dash()
     {
         canDash = false;
